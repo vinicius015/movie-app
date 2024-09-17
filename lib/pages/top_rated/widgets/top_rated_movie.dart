@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/pages/movie_details/movie_details_page.dart';
 
 class TopRatedMovie extends StatelessWidget {
   const TopRatedMovie({
@@ -18,14 +19,20 @@ class TopRatedMovie extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 100,
-            height: 140,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage('$imageUrl${movie.posterPath}')),
+          InkWell(
+            onTap: () => {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MovieDetailsPage(movieId: movie.id)))
+            },
+            child: Container(
+              width: 100,
+              height: 140,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage('$imageUrl${movie.posterPath}')),
+              ),
             ),
           ),
           const SizedBox(

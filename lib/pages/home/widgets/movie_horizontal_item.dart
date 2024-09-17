@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/pages/movie_details/movie_details_page.dart';
 
 class MovieHorizontalItem extends StatelessWidget {
   const MovieHorizontalItem({
@@ -14,25 +15,32 @@ class MovieHorizontalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: 200,
-          width: 140,
-          foregroundDecoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.black.withOpacity(0.8),
-                Colors.transparent,
-              ],
+        InkWell(
+          onTap: () => {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => MovieDetailsPage(movieId: movie.id,))
+            )
+          },
+          child: Container(
+            height: 200,
+            width: 140,
+            foregroundDecoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Colors.black.withOpacity(0.8),
+                  Colors.transparent,
+                ],
+              ),
             ),
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage('$imageUrl${movie.posterPath}'),
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage('$imageUrl${movie.posterPath}'),
+              ),
             ),
           ),
         ),
