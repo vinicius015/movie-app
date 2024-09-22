@@ -51,7 +51,7 @@ class _PersonDetailsPageState extends State<PersonDetailsPage> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "$imageUrl${person!.profilePath}"),
+                                    "$imageUrl${person.profilePath}"),
                                 fit: BoxFit.cover)),
                         child: SafeArea(
                           child: Row(
