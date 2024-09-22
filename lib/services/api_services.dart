@@ -5,6 +5,7 @@ import 'package:movie_app/models/movie_details_model.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/models/person_model.dart';
+import 'package:movie_app/models/show_model.dart';
 
 const baseUrl = 'https://api.themoviedb.org/3/';
 const key = '?api_key=$apiKey';
@@ -96,5 +97,16 @@ class ApiServices {
       return Person.fromJson(jsonDecode(response.body));
     }
     throw Exception('failed to load person details');
+  }
+
+  Future<ShowResult> getTopRatedShows() async {
+    var endPoint = 'tv/top_rated';
+    final url = '$baseUrl$endPoint$key';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return ShowResult.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load now playing movies');
   }
 }
