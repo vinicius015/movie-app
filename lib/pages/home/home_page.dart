@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/models/person_model.dart';
 import 'package:movie_app/pages/home/widgets/movies_horizontal_list.dart';
 import 'package:movie_app/pages/home/widgets/nowplaying_list.dart';
+import 'package:movie_app/pages/home/widgets/people_horizontal_list.dart';
 import 'package:movie_app/services/api_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,12 +18,14 @@ class _HomePageState extends State<HomePage> {
   late Future<Result> popular;
   late Future<Result> nowPlaying;
   late Future<Result> upcoming;
+  late Future<PeopleResult> popularPeople;
 
   @override
   void initState() {
     popular = apiServices.getPopularMovies();
     nowPlaying = apiServices.getNowPlayingMovies();
     upcoming = apiServices.getUpcomingMovies();
+    popularPeople = apiServices.getPopularPeople();
     super.initState();
   }
 
@@ -129,6 +133,34 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 20,
               ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: Text(
+                  'Popular People',
+                  style: TextStyle(
+                    color: Colors.white54,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              FutureBuilder(
+                  future: popularPeople,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    }
+                    return PeopleHorizontalList(
+                      people: snapshot.data!.people,
+                    );
+                  }),
             ],
           ),
         ),
