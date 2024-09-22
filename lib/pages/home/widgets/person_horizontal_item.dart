@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/person_model.dart';
-import 'package:movie_app/pages/movie_details/movie_details_page.dart';
+import 'package:movie_app/pages/person_details/person_details_page.dart';
 
 class PersonHorizontalItem extends StatelessWidget {
   const PersonHorizontalItem({
@@ -18,7 +18,7 @@ class PersonHorizontalItem extends StatelessWidget {
         InkWell(
           onTap: () => {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => MovieDetailsPage(movieId: person.id,))
+              MaterialPageRoute(builder: (context) => PersonDetailsPage(personId: person.id,))
             )
           },
           child: Container(

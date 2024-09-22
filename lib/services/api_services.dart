@@ -77,13 +77,24 @@ class ApiServices {
   }
 
   Future<PeopleResult> getPopularPeople() async {
-    final endPoint = 'person/popular';
-    final url = '$baseUrl$endPoint$key';
+    const endPoint = 'person/popular';
+    const url = '$baseUrl$endPoint$key';
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return PeopleResult.fromJson(jsonDecode(response.body));
     }
     throw Exception('failed to load popular people');
+  }
+
+  Future<Person> getPopularPerson(int personId) async {
+    final endPoint = 'person/$personId';
+    final url = '$baseUrl$endPoint$key';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return Person.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load person details');
   }
 }

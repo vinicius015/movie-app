@@ -35,7 +35,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print(widget.movieId);
     return Scaffold(
       body: SingleChildScrollView(
         child: FutureBuilder(
